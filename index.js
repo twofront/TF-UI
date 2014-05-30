@@ -1,33 +1,62 @@
 var $ = require('NodObjC');
-$.import('Foundation');
 $.import('Cocoa');
 
 var pool = $.NSAutoreleasePool('alloc')('init');
 var app = $.NSApplication('sharedApplication');
 
-var appDelegate = $.NSObject.extend('AppDelegate');
-appDelegate.addMethod('test:', 'v@:@', function () {
-	console.log('test');
+var delegate = require('./lib/common/delegate.js');
+var appDelegate = delegate.create('AppDelegate', app);
+appDelegate.addMethod('applicationDidFinishLaunching:', function() {
+	console.log('Launch finished!');
 });
-appDelegate.register();
-
-var delegate = appDelegate('alloc')('init');
-app('setDelegate', delegate);
+appDelegate = appDelegate.delegate;
 
 var windows = require('./lib/window.js');
-var menuBar = require('./lib/menubar.js')(app, appDelegate);
+var menuBar = require('./lib/menubar.js')(app);
 var statusBar = require('./lib/statusbar.js');
 exports.addWindow = windows.addWindow;
 exports.menuBar = menuBar;
 exports.statusBar = statusBar;
 
-// This make the app become "active" and display its menu when any window is clicked
+// This makes the app become "active" and display its menu when any window is clicked
 // and brought to the foreground.
 app('setActivationPolicy', $.NSApplicationActivationPolicyRegular);
 
-exports.run = function() {
-	windows.init();
+exports.run = function(mode) {
+	// This doesn't seem to work...
 	app('activateIgnoringOtherApps', true);
-	app('run');
-	pool('release');
+	
+	if (mode === 'nonblocking') {
+		app('finishLaunching');
+		var userInfo = $.NSDictionary(
+			'dictionaryWithObject', $(1),
+			'forKey', $('NSApplicationLaunchIsDefaultLaunchKey')
+		);
+		var notifCenter = $.NSNotificationCenter('defaultCenter');
+		notifCenter(
+			'postNotificationName', $.NSApplicationDidFinishLaunchingNotification,
+			'object', app,
+			'userInfo', userInfo
+		);
+		eventLoop();
+	} else {
+		app('run');
+	}
 };
+
+// From: https://github.com/TooTallNate/NodObjC/issues/2
+function eventLoop() {
+	var ev;
+	if(ev = app('nextEventMatchingMask', 4294967295,
+			//$.NSAnyEventMask is losing precision somewhere
+			'untilDate', null, // don't wait if there is no event
+			'inMode', $.NSDefaultRunLoopMode,
+			'dequeue', 1)) {
+		app('sendEvent', ev);
+	}
+	app('updateWindows');
+
+	// The faster we loop the more we segfault on button press...
+	//setTimeout(eventLoop, 1);
+	setImmediate(eventLoop);
+}
