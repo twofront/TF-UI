@@ -5,7 +5,8 @@
   "repository": "git://github.com/twofront/TF-UI",
   "main": "index.js",
   "dependencies": {
-    "NodObjC": "0.0.15"
+    "NodObjC": "0.0.15",
+    "uvcf": "^0.1.1"
   },
   "devDependencies": {},
   "scripts": {

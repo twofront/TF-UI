@@ -3,9 +3,11 @@
 var tfui = require('./');
 
 function buttonAction() {
-	win
-		.setTitle('New Title')
-		.setSize(1000, 1000);
+	win.setTitle('New Title')
+
+	if (this == 1) win.maximize(true);
+	else win.maximize(false);
+
 	console.log('Button '+this+' Pressed');
 }
 
@@ -36,10 +38,13 @@ var win = tfui
 		.setTitle('Test Window')
 		.setSize(800, 800);
 
-win.addButton('Test Button', 100, 100, 200, 30)
+win.addButton('Button 1', 0, 25, 100, 25)
 	.onClick(buttonAction.bind(1));
 
-win.addButton('Test Button 2', 200, 200, 100, 30)
+win.addButton('Button 2', 0, 0, 100, 25)
 	.onClick(buttonAction.bind(2));
 
-tfui.run();
+tfui.run(function() {
+	console.log('Started');
+});
+// Code after our call to tfui.run will never execute.
