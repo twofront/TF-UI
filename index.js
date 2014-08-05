@@ -14,6 +14,18 @@ var statusBar = require('./lib/statusbar.js');
 exports.addWindow = windows.addWindow;
 exports.menuBar = menuBar;
 exports.statusBar = statusBar;
+exports.chooseFile = function() {
+	var panel = $.NSOpenPanel('openPanel');
+	if (panel('runModalForDirectory', null, 'file', null) === $.NSOKButton) {
+		var nsfiles = panel('filenames');
+		var files = [];
+		for (var i=0; i<nsfiles('count'); i++) {
+			files.push(nsfiles('objectAtIndex', i)+'');
+		}
+		return files;
+	}
+	return null;
+}
 
 // This makes the app become "active" and display its menu when any window is clicked
 // and brought to the foreground.

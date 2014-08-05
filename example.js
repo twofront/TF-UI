@@ -2,24 +2,22 @@
 
 var tfui = require('./');
 
-function buttonAction() {
-	win.setTitle('New Title')
-
-	if (this == 1) win.maximize(true);
-	else win.maximize(false);
-
-	console.log('Button '+this+' Pressed');
+function chooseFile() {
+	console.log(tfui.chooseFile());
 }
-
-function menuAction() {
-	tfui.menuBar
-		.addMenu('MenuAdded');
-	console.log('Menu Item '+this+' Pressed');
+function changeTitle() {
+	win.setTitle('Title Changed')
+}
+function maximize() {
+	win.maximize(true);
+}
+function minimize() {
+	win.maximize(false);
 }
 
 tfui.menuBar
 	.addMenu('File')
-		.addItem('AddMenu', 'e', menuAction.bind(1));
+		.addItem('Choose File', 'e', chooseFile);
 
 tfui.menuBar
 	.addMenu('Edit')
@@ -38,11 +36,22 @@ var win = tfui
 		.setTitle('Test Window')
 		.setSize(800, 800);
 
-win.addButton('Button 1', 0, 25, 100, 25)
-	.onClick(buttonAction.bind(1));
+win.addButton('Maximize', 0, 0, 100, 25)
+	.onClick(maximize);
 
-win.addButton('Button 2', 0, 0, 100, 25)
-	.onClick(buttonAction.bind(2));
+win.addButton('Minimize', 0, 25, 100, 25)
+	.onClick(minimize);
+
+win.addButton('Change Title', 0, 50, 100, 25)
+	.onClick(changeTitle);
+
+win.addButton('Choose File', 0, 75, 100, 25)
+	.onClick(chooseFile);
+
+win.addTextField(150, 5, 100, 20)
+	.onReturn(function() {
+		console.log('Pressed return in text field!');
+	});
 
 tfui.run(function() {
 	console.log('Started');
