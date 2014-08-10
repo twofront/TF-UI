@@ -53,6 +53,8 @@ win.addTextField(150, 5, 100, 20)
 		console.log('Pressed return in text field!');
 	});
 
+win.addLabel('Hello World', 150, 30, 100, 20);
+
 tfui.run(function() {
 	console.log('Started');
 });

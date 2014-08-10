@@ -8,7 +8,7 @@ var app = $.NSApplication('sharedApplication');
 var delegate = require('./lib/common/delegate.js');
 var appDelegate = delegate.create('AppDelegate', app);
 
-var windows = require('./lib/window.js');
+var windows = require('./lib/window/');
 var menuBar = require('./lib/menubar.js')(app);
 var statusBar = require('./lib/statusbar.js');
 exports.addWindow = windows.addWindow;
