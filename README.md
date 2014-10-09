@@ -14,15 +14,13 @@ Get this module from npm using:
 
 	npm install tfui
 
-## Example
+## Examples
 
-An example of how to use this module is located in `example.js`. Run using:
-
-	node example.js
+The scripts located in `examples` may be run on the command line.
 
 ## Packaging Your App
 
-I will be adding a template soon that is easy to edit and feels 100% native. For now, [Platypus](http://sveinbjorn.org/platypus) might be of use to you. Note that the application bundles it creates do exhibit some odd behaviour that is avoidable.
+Placing your code inside `AppTemplate.app/MacOS/` will make it a double clickable app. Though you can modify `AppTemplate.app/Info.plist` may be modified, by default `index.js` will be run. This javascript file should have `#!/usr/local/bin/node` as its first line so that Mac OS knows to use the Node.js interpreter.
 
 ## Troubleshooting
 

@@ -1,11 +1,13 @@
 {
   "name": "tfui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Create a native user interface for Mac using Node.js.",
   "repository": "git://github.com/twofront/TF-UI",
   "main": "index.js",
   "dependencies": {
     "NodObjC": "git://github.com/TooTallNate/NodObjC.git",
+    "ref": "^0.3.2",
+    "ref-array": "0.0.4",
     "uvcf": "^0.1.1"
   },
   "devDependencies": {},

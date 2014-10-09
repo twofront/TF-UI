@@ -8,12 +8,14 @@ var app = $.NSApplication('sharedApplication');
 var delegate = require('./lib/common/delegate.js');
 var appDelegate = delegate.create('AppDelegate', app);
 
-var windows = require('./lib/window/');
-var menuBar = require('./lib/menubar.js')(app);
-var statusBar = require('./lib/statusbar.js');
+var windows = require('./lib/window');
+var menuBar = require('./lib/menubar')(app);
+var statusBar = require('./lib/statusbar');
+var audio = require('./lib/audio');
 exports.addWindow = windows.addWindow;
 exports.menuBar = menuBar;
 exports.statusBar = statusBar;
+exports.audio = audio;
 exports.chooseFile = function() {
 	var panel = $.NSOpenPanel('openPanel');
 	if (panel('runModalForDirectory', null, 'file', null) === $.NSOKButton) {

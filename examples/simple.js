@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-var tfui = require('./');
+var tfui = require('../');
 
 function chooseFile() {
 	console.log(tfui.chooseFile());
