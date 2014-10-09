@@ -20,7 +20,7 @@ The scripts located in `examples` may be run on the command line.
 
 ## Packaging Your App
 
-Placing your code inside `AppTemplate.app/MacOS/` will make it a double clickable app. Though you can modify `AppTemplate.app/Info.plist` may be modified, by default `index.js` will be run. This javascript file should have `#!/usr/local/bin/node` as its first line so that Mac OS knows to use the Node.js interpreter.
+Placing your code inside `AppTemplate.app/MacOS/` will make it a double clickable app. Though you can modify `AppTemplate.app/Info.plist`, by default `index.js` will be run. This javascript file should have `#!/usr/local/bin/node` as its first line so that Mac OS knows to use the Node.js interpreter.
 
 ## Troubleshooting
 
