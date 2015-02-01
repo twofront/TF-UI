@@ -29,7 +29,8 @@ tfui.menuBar
 	.addMenu('Help');
 
 tfui.statusBar
-	.addItem('TFUI');
+	.addItem('TFUI')
+		.addMenu('TFUI');
 
 var win = tfui
 	.addWindow()
@@ -48,9 +49,10 @@ win.addButton('Change Title', 0, 50, 100, 25)
 win.addButton('Choose File', 0, 75, 100, 25)
 	.onClick(chooseFile);
 
-win.addTextField(150, 5, 100, 20)
+var textfield = win.addTextField(150, 5, 100, 20)
 	.onReturn(function() {
 		console.log('Pressed return in text field!');
+		console.log(textfield.getValue());
 	});
 
 win.addLabel('Hello World', 150, 30, 100, 20);

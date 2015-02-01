@@ -9,8 +9,21 @@ var win = tfui
 
 var gl = win.addGL();
 
-setInterval(function() {
+var last = 0.0;
+var count = 0;
+//setInterval(function() {
+function drawIt() {
+	var t = (new Date()).getTime();
+	if (count%3 === 0) {
+		var dif = t-last;
+		console.log(1000/dif+' FPS');
+	}
+	last = t;
 	gl.draw();
-}, 1000);
+	count++;
+	setImmediate(drawIt);
+}
+setTimeout(drawIt, 500);
+//}, 165);
 
 tfui.run(function() {});
